@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Chat",
-  description: "Chat Page",
+  title: "Register",
+  description: "Register Page",
 };
 
 export default function LoginLayout({
@@ -12,7 +12,7 @@ export default function LoginLayout({
 }>) {
   return (
     <>
-      { children }
+      {children}
     </>
   );
 }

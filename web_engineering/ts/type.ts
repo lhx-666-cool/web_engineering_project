@@ -12,7 +12,7 @@ interface chatHistoryType {
 }
 
 interface userDataType {
-    name: string, 
+    name: string,
     count: number,
 }
 

@@ -47,7 +47,7 @@ function useWindowWidth() {
   return width;
 }
 
-function getOption(isDark:boolean, isMobile:boolean) {
+function getOption(isDark: boolean, isMobile: boolean) {
   return {
     title: [
       {
@@ -77,7 +77,7 @@ function getOption(isDark:boolean, isMobile:boolean) {
       data: models.map(x => x.name),
       itemWidth: 12,
       itemHeight: 12,
-      formatter: (name:string) => `{style|●} ${name}`,
+      formatter: (name: string) => `{style|●} ${name}`,
       textStyle: {
         color: isDark ? '#ddd' : '#333',
         fontSize: isMobile ? 13 : 15,

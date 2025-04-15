@@ -1,6 +1,6 @@
 import Link from "next/link"
 export default function Register() {
-  
+
   return (
     <>
       <div className="w-full h-full flex justify-center items-center bg-stone-100 dark:bg-stone-800">
