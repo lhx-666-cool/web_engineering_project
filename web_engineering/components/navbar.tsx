@@ -1,8 +1,34 @@
-import Logo from '@/assets/logo.png'
-import Image from 'next/image'
+'use client';
+
+import { useState, useEffect } from 'react';
+import Logo from '@/assets/logo.png';
+import Image from 'next/image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
+
 export default function Navbar() {
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const res = await fetch('/api/user');
+        if (res.ok) {
+          const data = await res.json();
+          setUsername(data.username);
+        } else {
+          // Handle cases where user is not authenticated or API returns error
+          setUsername(null); // Or set to a default like 'Guest'
+        }
+      } catch (error) {
+        console.error('Failed to fetch username:', error);
+        setUsername(null); // Handle fetch errors
+      }
+    };
+
+    fetchUsername();
+  }, []); // Empty dependency array means this effect runs once after the initial render
+
   return (
     <>
       <div className="navbar bg-stone-200 h-full w-full dark:bg-stone-900">
@@ -21,6 +47,7 @@ export default function Navbar() {
           <div className='flex-1'>
           </div>
           <div className='h-full flex items-center mr-4'>
+            {username && <span className="mr-2 text-lg font-semibold">{username}</span>}
             <div className='w-12 h-12'>
               <AccountCircleIcon style={{ width: '100%', height: '100%' }} />
             </div>
