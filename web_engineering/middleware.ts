@@ -22,11 +22,16 @@ export async function middleware(request: NextRequest) {
     if (authToken) {
       try {
         // 验证 JWT 并解码 payload
-        const decoded = jwt.verify(authToken, JWT_SECRET) as { userId: number; username: string };
+        const decoded = jwt.verify(authToken, JWT_SECRET) as { userId: number; username: string; role: number };
 
         // Token 有效，用户已登录
         const username = decoded.username; // 从解码后的 payload 中获取用户名
-
+        const role = decoded.role; // 从解码后的 payload 中获取用户角色
+        if (pathname === '/admin' && role === 0) {
+          // 如果当前路径是登录页，重定向到主页
+          const homeUrl = new URL('/', request.url);
+          return NextResponse.redirect(homeUrl);
+        }
         // 将用户名传递给后续的 API 接口或页面组件
         const requestHeaders = new Headers(request.headers);
         requestHeaders.set('X-Authenticated-User', username);

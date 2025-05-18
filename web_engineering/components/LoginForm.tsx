@@ -23,6 +23,9 @@ export default function LoginForm() {
 
     if (response.ok) {
       // Login successful
+      // Dispatch custom event to notify navbar to update username
+      window.dispatchEvent(new Event('auth-state-changed'));
+      
       const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || '/';
       router.push(redirectUrl);
     } else {

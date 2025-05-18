@@ -9,24 +9,32 @@ import Link from 'next/link';
 export default function Navbar() {
   const [username, setUsername] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const res = await fetch('/api/user');
-        if (res.ok) {
-          const data = await res.json();
-          setUsername(data.username);
-        } else {
-          // Handle cases where user is not authenticated or API returns error
-          setUsername(null); // Or set to a default like 'Guest'
-        }
-      } catch (error) {
-        console.error('Failed to fetch username:', error);
-        setUsername(null); // Handle fetch errors
+  const fetchUsername = async ():Promise<void> => {
+    try {
+      const res = await fetch('/api/user');
+      if (res.ok) {
+        const data = await res.json();
+        setUsername(data.username);
+      } else {
+        // Handle cases where user is not authenticated or API returns error
+        setUsername(null); // Or set to a default like 'Guest'
       }
-    };
+    } catch (error) {
+      console.log('Failed to fetch username:', error);
+      setUsername(null); // Handle fetch errors
+    }
+  };
 
+  useEffect(() => {
     fetchUsername();
+    
+    // Add event listener for auth state changes
+    window.addEventListener('auth-state-changed', fetchUsername);
+    
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener('auth-state-changed', fetchUsername);
+    };
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   return (
