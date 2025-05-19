@@ -1,6 +1,7 @@
 import {NextResponse} from "next/server";
 import sqlite3 from "sqlite3";
 import {open} from "sqlite";
+import {agentType} from "@/ts/type";
 
 async function openDb() {
     return open({
@@ -17,4 +18,14 @@ export async function GET() {
     }catch (e) {
         console.log(e);
     }
+}
+
+export async function getAgents(): Promise<agentType[]> {
+    const db = await openDb();
+    try{
+        return await db.all('SELECT * FROM agent');
+    }catch (e) {
+        console.log(e);
+    }
+    return [];
 }

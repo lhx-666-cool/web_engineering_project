@@ -2,9 +2,10 @@ import AgentCard from "@/components/agentCard"
 import { agentType, userDataType } from "@/ts/type"
 import AddIcon from '@mui/icons-material/Add';
 import ModelDonutChart from "@/components/chart";
-export default function AdminPage() {
-  let agents: agentType[] = [];
-  const resp1 = await fetch()
+import {getAgents} from "@/app/api/protected/agent/route";
+export default async function AdminPage() {
+  const agents: agentType[] = await getAgents();
+
   const userData: userDataType[] = [
     {
       name: "hxzzz",
@@ -34,7 +35,7 @@ export default function AdminPage() {
               Agent列表
             </div>
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl-grid-cols-4 gap-4 mt-8">
-              {data.map((item) => (
+              {agents.map((item) => (
                 <div key={item.id}>
                   <AgentCard agent={item} admin={true} />
                 </div>
