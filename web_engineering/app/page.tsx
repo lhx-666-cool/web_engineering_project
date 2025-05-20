@@ -1,6 +1,7 @@
 import Search from "@/components/search";
-import { agentType } from "@/ts/type";
+import {agentType} from "@/ts/type";
 import AgentCard from "@/components/agentCard";
+
 export default function Home() {
   const data: agentType[] = [
     {
@@ -54,18 +55,18 @@ export default function Home() {
   ]
   return (
     <>
-      <div className="w-full h-full" >
+      <div className="w-full h-full">
         <div className="box w-full h-ull flex flex-col">
           <div className="search mt-10 flex justify-center items-center">
             <div className="w-4/5 max-w-100">
-              <Search />
+              <Search/>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-10 gap-4">
             {data.map((item) => {
               return (
                 <div key={item.id}>
-                  <AgentCard agent={item} admin={false} />
+                  <AgentCard agent={item} admin={false}/>
                 </div>
               )
             })}

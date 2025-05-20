@@ -1,52 +1,37 @@
-'use client'
-import React, { useState, useEffect } from 'react';
+"use client";
+
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import SunnyIcon from '@mui/icons-material/Sunny';
 import BedtimeIcon from '@mui/icons-material/Bedtime';
 
-const ThemeToggle: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+export default function ThemeToggle() {
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // 从localStorage加载主题
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
-    }
+    setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    const newTheme = !isDarkMode ? 'dark' : 'light';
+  if (!mounted) {
+    return null; // 防止 hydration 错误
+  }
 
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-
-    localStorage.setItem('theme', newTheme);
-  };
-
+  const currentTheme = theme === "system" ? systemTheme : theme;
   return (
-    <button onClick={toggleTheme}>
-      {isDarkMode ?
-        <>
-          <div className="box bg-neutral-500 w-8 h-8 flex justify-center items-center rounded-md">
-            <SunnyIcon style={{ color: 'black' }} />
-          </div>
-        </>
-        :
-        <>
-          <div className="box bg-neutral-400 w-8 h-8 flex justify-center items-center rounded-md">
-            <BedtimeIcon style={{ color: 'white' }} />
-          </div>
-        </>}
+    <button
+      onClick={() => { setTheme(currentTheme === "dark" ? "light" : "dark")}}
+      className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+    >
+      {currentTheme === "dark" ? (
+        <div className="box bg-neutral-500 w-8 h-8 flex justify-center items-center rounded-md">
+          <SunnyIcon style={{color: 'black'}}/>
+        </div>
+      ) : (
+        <div className="box bg-neutral-400 w-8 h-8 flex justify-center items-center rounded-md">
+          <BedtimeIcon style={{color: 'white'}}/>
+        </div>
+      )}
     </button>
   );
-};
-
-export default ThemeToggle;
+}

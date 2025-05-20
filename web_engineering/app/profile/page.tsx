@@ -1,4 +1,4 @@
-import { agentType, chatHistoryType } from "@/ts/type";
+import {agentType, chatHistoryType} from "@/ts/type";
 
 export default function ProfilePage() {
   // 代理数据
@@ -100,7 +100,8 @@ export default function ProfilePage() {
           <div className="title mt-10 text-xl font-bold">
             个人主页
           </div>
-          <div className="star mt-4 bg-stone-200 p-4 rounded-xl shadow-lg border-1 border-gray-400/40 dark:bg-stone-700 dark:shadow-black">
+          <div
+            className="star mt-4 bg-stone-200 p-4 rounded-xl shadow-lg border-1 border-gray-400/40 dark:bg-stone-700 dark:shadow-black">
             <div className="title text-lg font-semibold">
               我的收藏
             </div>
@@ -125,7 +126,8 @@ export default function ProfilePage() {
               </ul>
             </div>
           </div>
-          <div className="star mt-4 bg-stone-200 p-4 rounded-xl shadow-lg border-1 border-gray-400/40 dark:bg-stone-700 dark:shadow-black">
+          <div
+            className="star mt-4 bg-stone-200 p-4 rounded-xl shadow-lg border-1 border-gray-400/40 dark:bg-stone-700 dark:shadow-black">
             <div className="title text-lg font-semibold">
               我的历史记录
             </div>

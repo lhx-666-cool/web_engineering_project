@@ -1,6 +1,6 @@
 // middleware.ts
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import {NextResponse} from 'next/server';
+import type {NextRequest} from 'next/server';
 import jwt from 'jsonwebtoken';
 
 // 用于签名和验证 JWT 的密钥（与 pages/api/login.ts 中的保持一致）
@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key_here'; // 替换�
 const protectedRoutes = ['/admin', '/chat', '/profile', '/api/protected', '/api/user'];
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const {pathname} = request.nextUrl;
 
   // 判断当前路径是否是需要鉴权的路径
   const isProtectedRoute = protectedRoutes.some(prefix => pathname.startsWith(prefix));

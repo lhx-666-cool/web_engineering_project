@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Logo from '@/assets/logo.png';
 import Image from 'next/image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 export default function Navbar() {
   const [username, setUsername] = useState<string | null>(null);
 
-  const fetchUsername = async ():Promise<void> => {
+  const fetchUsername = async (): Promise<void> => {
     try {
       const res = await fetch('/api/user');
       if (res.ok) {
@@ -27,10 +27,10 @@ export default function Navbar() {
 
   useEffect(() => {
     fetchUsername();
-    
+
     // Add event listener for auth state changes
     window.addEventListener('auth-state-changed', fetchUsername);
-    
+
     // Cleanup function to remove event listener
     return () => {
       window.removeEventListener('auth-state-changed', fetchUsername);
@@ -44,7 +44,7 @@ export default function Navbar() {
           <Link href={'/'}>
             <div className="logo h-full flex items-center ml-4">
               <div className="image relative w-14 h-14 rounded-2xl overflow-hidden">
-                <Image src={Logo} alt='logo' layout='fill' />
+                <Image src={Logo} alt='logo' layout='fill'/>
               </div>
             </div>
           </Link>
@@ -57,7 +57,7 @@ export default function Navbar() {
           <div className='h-full flex items-center mr-4'>
             {username && <span className="mr-2 text-lg font-semibold">{username}</span>}
             <div className='w-12 h-12'>
-              <AccountCircleIcon style={{ width: '100%', height: '100%' }} />
+              <AccountCircleIcon style={{width: '100%', height: '100%'}}/>
             </div>
           </div>
         </div>

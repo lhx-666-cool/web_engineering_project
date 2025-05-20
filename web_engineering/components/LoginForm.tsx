@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import {useState} from 'react';
+import {useRouter} from 'next/navigation';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ export default function LoginForm() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({username, password}),
     });
 
     const data = await response.json();
@@ -25,7 +25,7 @@ export default function LoginForm() {
       // Login successful
       // Dispatch custom event to notify navbar to update username
       window.dispatchEvent(new Event('auth-state-changed'));
-      
+
       const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || '/';
       router.push(redirectUrl);
     } else {

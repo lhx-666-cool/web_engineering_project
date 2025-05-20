@@ -1,21 +1,21 @@
 'use client';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, {useMemo, useState, useEffect} from 'react';
 import dynamic from 'next/dynamic';
 
-const ReactEcharts = dynamic(() => import('echarts-for-react'), { ssr: false });
+const ReactEcharts = dynamic(() => import('echarts-for-react'), {ssr: false});
 
 const models = [
-  { name: 'gpt-4', color: '#2ec7c9' },
-  { name: 'Qwen', color: '#bc99fa' },
-  { name: 'spark', color: '#ffb940' },
-  { name: 'chatglm3', color: '#8cd3ff' },
-  { name: 'deepseek', color: '#ffb4b4' },
+  {name: 'gpt-4', color: '#2ec7c9'},
+  {name: 'Qwen', color: '#bc99fa'},
+  {name: 'spark', color: '#ffb940'},
+  {name: 'chatglm3', color: '#8cd3ff'},
+  {name: 'deepseek', color: '#ffb4b4'},
 ];
 const total = 1024;
 const data = models.map(model => ({
   name: model.name,
   value: Math.floor(Math.random() * 400) + 100,
-  itemStyle: { color: model.color },
+  itemStyle: {color: model.color},
 }));
 
 // 动态检测dark模式 (略，可复用前面代码)
@@ -28,7 +28,7 @@ function useIsDark() {
     const update = () => setIsDark(el.classList.contains('dark'));
     update();
     const observer = new MutationObserver(update);
-    observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    observer.observe(el, {attributes: true, attributeFilter: ['class']});
     return () => observer.disconnect();
   }, []);
   return isDark;
@@ -54,13 +54,13 @@ function getOption(isDark: boolean, isMobile: boolean) {
         text: '模型调用次数占比',
         left: isMobile ? 20 : 30,
         top: 10,
-        textStyle: { fontWeight: 700, fontSize: 17, color: isDark ? '#fff' : '#222' },
+        textStyle: {fontWeight: 700, fontSize: 17, color: isDark ? '#fff' : '#222'},
       },
       {
         text: `总计:  ${total}`,
         left: isMobile ? 20 : 30,
         top: 40,
-        textStyle: { color: isDark ? '#bbb' : '#888', fontSize: 14, fontWeight: 400 }
+        textStyle: {color: isDark ? '#bbb' : '#888', fontSize: 14, fontWeight: 400}
       }
     ],
     tooltip: {
@@ -68,7 +68,7 @@ function getOption(isDark: boolean, isMobile: boolean) {
       formatter: '{b}: {c} ({d}%)',
       backgroundColor: isDark ? '#222' : '#fff',
       borderColor: isDark ? '#333' : '#ddd',
-      textStyle: { color: isDark ? '#fff' : '#222' }
+      textStyle: {color: isDark ? '#fff' : '#222'}
     },
     legend: {
       orient: isMobile ? 'horizontal' : 'vertical',
@@ -81,11 +81,11 @@ function getOption(isDark: boolean, isMobile: boolean) {
       textStyle: {
         color: isDark ? '#ddd' : '#333',
         fontSize: isMobile ? 13 : 15,
-        rich: { style: { fontSize: 17, padding: [0, 5, 0, 0] } }
+        rich: {style: {fontSize: 17, padding: [0, 5, 0, 0]}}
       }
     },
     grid: isMobile
-      ? { left: '0%', right: '0%', bottom: '15%', containLabel: true }
+      ? {left: '0%', right: '0%', bottom: '15%', containLabel: true}
       : undefined,
     backgroundColor: isDark ? '#1c1917' : '#eeefef',
     series: [
@@ -134,8 +134,8 @@ export default function ModelDonutChart() {
       }}>
         <ReactEcharts
           option={option}
-          style={{ width: '100%', height: '100%' }}
-          opts={{ renderer: 'canvas' }}
+          style={{width: '100%', height: '100%'}}
+          opts={{renderer: 'canvas'}}
         />
       </div>
     </div>
