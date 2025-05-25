@@ -4,8 +4,8 @@ import OpenAI from 'openai';
 import {addUsage} from "@/app/api/protected/usage/usage";
 
 const openai = new OpenAI({
-  baseURL: 'https://newapi.hxzzz.asia/v1',
-  apiKey: "sk-AnAvj3X1dubSa5449891B12731B04aEd94E5F01f8938C621",
+  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: process.env.OPENAI_API_BASE,
 });
 
 export async function POST(req: NextRequest) {
