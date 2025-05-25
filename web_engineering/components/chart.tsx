@@ -1,22 +1,9 @@
 'use client';
 import React, {useMemo, useState, useEffect} from 'react';
 import dynamic from 'next/dynamic';
+import {modelDataType} from "@/ts/type";
 
 const ReactEcharts = dynamic(() => import('echarts-for-react'), {ssr: false});
-
-const models = [
-  {name: 'gpt-4', color: '#2ec7c9'},
-  {name: 'Qwen', color: '#bc99fa'},
-  {name: 'spark', color: '#ffb940'},
-  {name: 'chatglm3', color: '#8cd3ff'},
-  {name: 'deepseek', color: '#ffb4b4'},
-];
-const total = 1024;
-const data = models.map(model => ({
-  name: model.name,
-  value: Math.floor(Math.random() * 400) + 100,
-  itemStyle: {color: model.color},
-}));
 
 // 动态检测dark模式 (略，可复用前面代码)
 function useIsDark() {
@@ -47,7 +34,23 @@ function useWindowWidth() {
   return width;
 }
 
-function getOption(isDark: boolean, isMobile: boolean) {
+function getOption(isDark: boolean, isMobile: boolean, modelData: modelDataType[]) {
+  const models = modelData.map((item) => {
+    return {
+      name: item.model
+    }
+  })
+  const total = modelData.reduce((total, item) => {
+    return total + item.count;
+  }, 0);
+
+  const data = modelData.map((item) => {
+    return {
+      name: item.model,
+      value: item.count
+    }
+  })
+
   return {
     title: [
       {
@@ -77,7 +80,7 @@ function getOption(isDark: boolean, isMobile: boolean) {
       data: models.map(x => x.name),
       itemWidth: 12,
       itemHeight: 12,
-      formatter: (name: string) => `{style|●} ${name}`,
+      formatter: (name: string) => `{style|} ${name}`,
       textStyle: {
         color: isDark ? '#ddd' : '#333',
         fontSize: isMobile ? 13 : 15,
@@ -110,12 +113,12 @@ function getOption(isDark: boolean, isMobile: boolean) {
   };
 }
 
-export default function ModelDonutChart() {
+export default function ModelDonutChart({modelData}: { modelData: modelDataType[] }) {
   const isDark = useIsDark();
   const winWidth = useWindowWidth();
   const isMobile = winWidth < 500;
 
-  const option = useMemo(() => getOption(isDark, isMobile), [isDark, isMobile]);
+  const option = useMemo(() => getOption(isDark, isMobile, modelData), [isDark, isMobile]);
   return (
     <div
       style={{

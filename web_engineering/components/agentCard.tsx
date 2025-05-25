@@ -1,9 +1,9 @@
 import {agentType} from "@/ts/type";
 import Image from "next/image";
-import StarIcon from '@mui/icons-material/Star';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import DeleteIcon from '@mui/icons-material/Delete';
 import DelAgentBtn from "@/components/delAgentBtn";
+import AddFavorite from "@/components/addFav";
+import Link from "next/link";
 
 interface AgentCardProps {
   agent: agentType,
@@ -32,27 +32,22 @@ export default function AgentCard({agent, admin}: AgentCardProps) {
         </div>
         <div className="flex justify-around mt-4 text-white">
           {!admin &&
-              <div
-                  className="star w-20 bg-yellow-600 h-6 rounded-md flex justify-center items-center gap-2 shadow-md shadow-yellow-800 cursor-pointer">
-                  <div className="icon h-4 w-4 flex justify-center items-center">
-                      <StarIcon style={{width: '100%', height: '100%', color: 'white'}}/>
-                  </div>
-                  <div className="text-sm">
-                      收藏
-                  </div>
-              </div>}
+              <AddFavorite id={agent.id}/>
+          }
           {admin &&
               <DelAgentBtn id={agent.id}/>
           }
-          <div
-            className="chat w-20 bg-green-600 h-6 rounded-md flex justify-center items-center gap-2 shadow-md shadow-green-900 cursor-pointer">
-            <div className="icon h-4 w-4 flex justify-center items-center">
-              <ChatBubbleIcon style={{width: '100%', height: '100%', color: 'white'}}/>
+          <Link href={'/chat?prompt=' + agent.content}>
+            <div
+              className="chat w-20 bg-green-600 h-6 rounded-md flex justify-center items-center gap-2 shadow-md shadow-green-900 cursor-pointer">
+              <div className="icon h-4 w-4 flex justify-center items-center">
+                <ChatBubbleIcon style={{width: '100%', height: '100%', color: 'white'}}/>
+              </div>
+              <div className="text-sm">
+                聊天
+              </div>
             </div>
-            <div className="text-sm">
-              聊天
-            </div>
-          </div>
+          </Link>
         </div>
       </div>
     </>

@@ -13,8 +13,13 @@ export async function middleware(request: NextRequest) {
   const {pathname} = request.nextUrl;
 
   // 判断当前路径是否是需要鉴权的路径
-  const isProtectedRoute = protectedRoutes.some(prefix => pathname.startsWith(prefix));
-
+  let isProtectedRoute = false;
+  try {
+    isProtectedRoute = protectedRoutes.some(prefix => pathname.startsWith(prefix));
+  } catch (e) {
+    console.log(e);
+    isProtectedRoute = false;
+  }
   // 如果是需要鉴权的路径，则进行 token 验证
   if (isProtectedRoute) {
     const authToken = request.cookies.get('auth_token')?.value;
@@ -27,6 +32,7 @@ export async function middleware(request: NextRequest) {
         // Token 有效，用户已登录
         const username = decoded.username; // 从解码后的 payload 中获取用户名
         const role = decoded.role; // 从解码后的 payload 中获取用户角色
+        const userId = decoded.userId; // 从解码后的 payload 中获取用户 ID
         if (pathname === '/admin' && role === 0) {
           // 如果当前路径是登录页，重定向到主页
           const homeUrl = new URL('/', request.url);
@@ -35,6 +41,8 @@ export async function middleware(request: NextRequest) {
         // 将用户名传递给后续的 API 接口或页面组件
         const requestHeaders = new Headers(request.headers);
         requestHeaders.set('X-Authenticated-User', username);
+        requestHeaders.set('X-Authenticated-Role', role.toString());
+        requestHeaders.set('X-Authenticated-UserId', userId.toString());
         return NextResponse.next({
           request: {
             headers: requestHeaders,

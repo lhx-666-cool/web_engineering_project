@@ -1,27 +1,16 @@
 import AgentCard from "@/components/agentCard"
-import {agentType, userDataType} from "@/ts/type"
-import AddIcon from '@mui/icons-material/Add';
+import {agentType, modelDataType, userDataType} from "@/ts/type"
 import ModelDonutChart from "@/components/chart";
-import {getAgents} from "@/app/api/protected/agent/route";
+import {getAgents} from "@/app/api/protected/agent/agent";
 import AddAgent from "@/app/admin/addAgent";
+import {getModelUsage, getUserUsage} from "@/app/api/protected/usage/usage";
 
 export default async function AdminPage() {
   const agents: agentType[] = await getAgents();
 
-  const userData: userDataType[] = [
-    {
-      name: "hxzzz",
-      count: 100,
-    },
-    {
-      name: 'xkm',
-      count: 98,
-    },
-    {
-      name: "guangtouqiang",
-      count: 87,
-    }
-  ]
+  const userData: userDataType[] = await getUserUsage();
+  const modelData: modelDataType[] = await getModelUsage();
+  console.log(modelData);
   return (
     <>
       <div className="p-4 flex flex-col w-full h-full overflow-y-scroll md:flex-row">
@@ -31,7 +20,7 @@ export default async function AdminPage() {
             <div className="title text-xl font-semibold">
               模型使用次数占比
             </div>
-            <ModelDonutChart/>
+            <ModelDonutChart modelData={modelData}/>
           </div>
           <div
             className="bg-stone-200/40 w-full rounded-md border-1 border-gray-400/40 shadow-md p-8 dark:bg-stone-900 mt-8">
@@ -73,13 +62,13 @@ export default async function AdminPage() {
                 </div>
               </li>
               {userData.map((item, idx) => (
-                <li key={item.name} className="mt-2 mb-2">
+                <li key={item.userId} className="mt-2 mb-2">
                   <div className="flex">
                     <div className="text-yellow-600 text-lg font-semibold">
                       {idx + 1}
                     </div>
                     <div className="name ml-2 min-w-0 line-clamp-1 text-ellipsis wrap-anywhere">
-                      {item.name}
+                      {item.username}
                     </div>
                     <div className="flex-1"></div>
                     <div className="">

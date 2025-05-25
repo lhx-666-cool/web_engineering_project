@@ -34,19 +34,19 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
     <Providers>
-      <div className="bg-gray-100 text-gray-700 dark:text-gray-100 dark:bg-stone-800 w-full h-[100vh] flex flex-col">
-        <div className="navbar h-18 w-full">
-          <Navbar/>
-        </div>
-        <div className="flex-1 min-h-0">
-          <MuiThemeProviderWrapper>
+      <MuiThemeProviderWrapper>
+        <div className="bg-gray-100 text-gray-700 dark:text-gray-100 dark:bg-stone-800 w-full h-[100vh] flex flex-col">
+          <div className="navbar h-18 w-full">
+            <Navbar/>
+          </div>
+          <div className="flex-1 min-h-0">
             {children}
-          </MuiThemeProviderWrapper>
+          </div>
         </div>
-      </div>
-      <div className="theme fixed bottom-10 right-10 z-100">
-        <Theme/>
-      </div>
+        <div className="theme fixed bottom-10 right-10 z-100">
+          <Theme/>
+        </div>
+      </MuiThemeProviderWrapper>
     </Providers>
     </body>
 
