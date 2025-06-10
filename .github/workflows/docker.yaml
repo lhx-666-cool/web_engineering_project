@@ -19,12 +19,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: CD
-        run: cd web_engineering
-        
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: web_engineering
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/aichats:latest
