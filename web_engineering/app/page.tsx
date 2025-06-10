@@ -3,6 +3,8 @@ import {agentType} from "@/ts/type";
 import AgentCard from "@/components/agentCard";
 import {getAgents} from "@/app/api/protected/agent/agent";
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const agents: agentType[] = await getAgents();
   return (

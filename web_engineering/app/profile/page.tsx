@@ -6,6 +6,8 @@ import {getTitleList} from "@/app/api/protected/history/history";
 import {DeleteHistoryBtn} from "@/app/profile/btns";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProfilePage() {
   // 代理数据
   const reqHeaders = await headers();

@@ -157,7 +157,7 @@ export default function ChatPage() {
   return (
     <>
       <div className="w-full h-full flex">
-        <div className="sidebar w-70 h-full max-w-1/2 bg-stone-200 dark:bg-stone-700 hidden sm:block">
+        <div className="sidebar w-70 h-full max-w-1/2 bg-stone-200 dark:bg-stone-700 hidden md:block">
           <div className="w-full h-full overflow-y-auto">
             <hr className="text-gray-300 dark:hidden"/>
             <div className="list flex flex-col gap-3 mt-4">
@@ -190,7 +190,8 @@ export default function ChatPage() {
                       <div className="w-10 h-10 mr-5 shrink-0">
                         <SmartToyIcon style={{width: '100%', height: '100%'}}/>
                       </div>
-                      <div className="bg-stone-300 p-4 py-2 rounded-lg dark:bg-stone-600/60 min-w-0 break-all">
+                      <div
+                        className="bg-stone-300 p-4 py-2 rounded-lg dark:bg-stone-600/60 min-w-0 break-all">
                         <ReactMarkdown remarkPlugins={[gfm]}>
                           {item.content}
                         </ReactMarkdown>
@@ -201,7 +202,8 @@ export default function ChatPage() {
                 {item.role === 'user' && (
                   <div className="w-full justify-end flex">
                     <div className="row flex justify-end w-3/4 mt-4">
-                      <div className="bg-green-600/60 p-4 py-2 rounded-lg dark:bg-green-800 min-w-0 break-all">
+                      <div
+                        className="bg-green-600/60 p-4 py-2 rounded-lg dark:bg-green-800 min-w-0 break-all">
                         <ReactMarkdown remarkPlugins={[gfm]}>
                           {item.content}
                         </ReactMarkdown>
@@ -220,7 +222,8 @@ export default function ChatPage() {
             <div
               className="w-4/5 flex h-10 border-1 border-green-700 rounded-sm bg-stone-200 dark:bg-stone-700 dark:border-green-800">
               <div>
-                <div className="w-10 h-full bg-green-600 rounded-xs flex justify-center items-center dark:bg-green-800">
+                <div
+                  className="w-10 h-full bg-green-600 rounded-xs flex justify-center items-center dark:bg-green-800">
                   <div className="w-6 h-6" onClick={handleOpenModelDialog}>
                     <SmartToyIcon style={{color: 'white', height: '100%', width: '100%'}}/>
                   </div>

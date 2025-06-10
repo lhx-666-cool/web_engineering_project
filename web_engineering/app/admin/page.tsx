@@ -5,6 +5,8 @@ import {getAgents} from "@/app/api/protected/agent/agent";
 import AddAgent from "@/app/admin/addAgent";
 import {getModelUsage, getUserUsage} from "@/app/api/protected/usage/usage";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminPage() {
   const agents: agentType[] = await getAgents();
 
