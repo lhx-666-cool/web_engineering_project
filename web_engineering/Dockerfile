@@ -37,7 +37,7 @@ COPY --from=builder /app/package.json ./package.json
 
 # 安装生产环境依赖
 # --omit=dev 参数只安装生产环境依赖
-RUN npm install --omit=dev
+RUN npm install
 
 # 暴露 Next.js 默认的服务端口
 EXPOSE 3000
